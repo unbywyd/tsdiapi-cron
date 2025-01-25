@@ -5,11 +5,7 @@
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf output",
-    "lint": "eslint . --ext .ts",
-    "test": "jest",
-    "prepublishOnly": "npm run clean && npm run build"
+    "build": "tsc"
   },
   "author": {
     "name": "Artyom Gorlovetskiy",
@@ -37,10 +33,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.10",
-    "typescript": "^5.7.2",
-    "eslint": "^8.51.0",
-    "jest": "^30.0.0",
-    "ts-jest": "^30.0.0"
+    "typescript": "^5.7.2"
   },
   "repository": {
     "type": "git",
