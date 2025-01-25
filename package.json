@@ -1,0 +1,58 @@
+{
+  "name": "tsdiapi-cron",
+  "description": "A powerful cron scheduling plugin for the TSDIAPI-Server framework, enabling declarative and dynamic task management.",
+  "version": "1.0.0",
+  "main": "output/index.js",
+  "types": "output/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf output",
+    "lint": "eslint . --ext .ts",
+    "test": "jest",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "author": {
+    "name": "Artyom Gorlovetskiy",
+    "url": "https://github.com/unbywyd",
+    "email": "unbywyd@gmail.com"
+  },
+  "engines": {
+    "node": ">=18.19.0"
+  },
+  "keywords": [
+    "tsdiapi",
+    "cron",
+    "scheduler",
+    "nodejs",
+    "typescript",
+    "task management"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node-cron": "^3.0.11",
+    "node-cron": "^3.0.3",
+    "typedi": "^0.10.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "typescript": "^5.7.2",
+    "eslint": "^8.51.0",
+    "jest": "^30.0.0",
+    "ts-jest": "^30.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unbywyd/tsdiapi-cron.git"
+  },
+  "bugs": {
+    "url": "https://github.com/unbywyd/tsdiapi-cron/issues"
+  },
+  "homepage": "https://github.com/unbywyd/tsdiapi-cron#readme",
+  "files": [
+    "output/",
+    "README.md",
+    "LICENSE"
+  ]
+}
