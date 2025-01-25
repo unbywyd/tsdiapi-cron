@@ -2,6 +2,7 @@ import "reflect-metadata";
 import type { Application } from 'express';
 import { Server } from "http";
 import type { Container } from 'typedi';
+import cron from 'node-cron';
 
 export type PluginOptions = {
     globCronPath: string;
@@ -37,7 +38,6 @@ export interface AppPlugin {
 }
 
 
-import cron from 'node-cron';
 
 export type CronTaskOptions = {
     name?: string;
@@ -77,7 +77,7 @@ export function CronTask(schedule: string, options?: CronTaskOptions): MethodDec
 
 
 export default class App implements AppPlugin {
-    name = 'app';
+    name = 'tsdiapi-cron';
     config: PluginOptions;
     bootstrapFilesGlobPath: string;
     context: PluginContext;

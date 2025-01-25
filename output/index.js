@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CronTask = CronTask;
 require("reflect-metadata");
+const node_cron_1 = __importDefault(require("node-cron"));
 const defaultConfig = {
     globCronPath: "*.cron{.ts,.js}",
 };
-const node_cron_1 = __importDefault(require("node-cron"));
 let CRON_TASKS = [];
 /**
  * @CronTask - Decorator for cron tasks
@@ -26,7 +26,7 @@ function CronTask(schedule, options) {
     };
 }
 class App {
-    name = 'app';
+    name = 'tsdiapi-cron';
     config;
     bootstrapFilesGlobPath;
     context;
