@@ -47,7 +47,7 @@ export function CronTask(schedule: string, options?: CronTaskOptions): MethodDec
 }
 
 
-export default class App implements AppPlugin {
+class App implements AppPlugin {
     name = 'tsdiapi-cron';
     config: PluginOptions;
     bootstrapFilesGlobPath: string;
@@ -93,4 +93,8 @@ export default class App implements AppPlugin {
     async afterStart(ctx: AppContext) {
         this.startCronTasks(ctx);
     }
+}
+
+export default function createPlugin(config?: PluginOptions) {
+    return new App(config);
 }
