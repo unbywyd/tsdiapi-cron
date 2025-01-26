@@ -23,7 +23,7 @@ export interface ManualCronTask {
  * @param schedule - cron schedule
  */
 export declare function CronTask(schedule: string, options?: CronTaskOptions): MethodDecorator;
-export default class App implements AppPlugin {
+declare class App implements AppPlugin {
     name: string;
     config: PluginOptions;
     bootstrapFilesGlobPath: string;
@@ -36,4 +36,6 @@ export default class App implements AppPlugin {
     registerManualCronTask(data: ManualCronTask): Promise<void>;
     afterStart(ctx: AppContext): Promise<void>;
 }
+export default function createPlugin(config?: PluginOptions): App;
+export {};
 //# sourceMappingURL=index.d.ts.map
