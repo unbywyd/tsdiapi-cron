@@ -119,15 +119,6 @@ TSDIAPI-Cron logs information about scheduled tasks, including their names and s
 
 ---
 
-## Dependencies
-
-- `tsdiapi-server`: Framework for building scalable API services.
-- `node-cron`: Library for cron scheduling in Node.js.
-- `reflect-metadata`: Required for decorator support.
-- `typedi`: Dependency injection library for managing services.
-
----
-
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve the plugin.

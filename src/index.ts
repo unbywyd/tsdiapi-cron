@@ -1,8 +1,6 @@
 import "reflect-metadata";
-import type { Application } from 'express';
-import { Server } from "http";
-import type { Container } from 'typedi';
 import cron from 'node-cron';
+import { AppContext, AppPlugin } from "tsdiapi-server";
 
 export type PluginOptions = {
     globCronPath: string;
@@ -10,33 +8,6 @@ export type PluginOptions = {
 const defaultConfig: PluginOptions = {
     globCronPath: "*.cron{.ts,.js}",
 }
-
-export interface AppOptions {
-    appConfig: any;
-    environment: string;
-    corsOptions: any;
-    swaggerOptions: any;
-    [key: string]: any;
-}
-
-export interface PluginContext {
-    appDir: string;
-    app: Application;
-    server?: Server;
-    plugins: Record<string, AppPlugin>;
-    container: typeof Container;
-    config: AppOptions;
-    logger: any
-}
-export interface AppPlugin {
-    name: string;
-    bootstrapFilesGlobPath?: string;
-    appConfig?: Record<string, any>;
-    onInit?(ctx: PluginContext): Promise<void> | void;
-    beforeStart?(ctx: PluginContext): Promise<void> | void;
-    afterStart?(ctx: PluginContext): Promise<void> | void;
-}
-
 
 
 export type CronTaskOptions = {
@@ -53,7 +24,7 @@ export interface CronTaskMetadata {
 export interface ManualCronTask {
     id: string;
     schedule: string;
-    task: (context: PluginContext) => Promise<void>;
+    task: (context: AppContext) => Promise<void>;
 }
 
 let CRON_TASKS: CronTaskMetadata[] = [];
@@ -80,10 +51,10 @@ export default class App implements AppPlugin {
     name = 'tsdiapi-cron';
     config: PluginOptions;
     bootstrapFilesGlobPath: string;
-    context: PluginContext;
+    context: AppContext;
     cronTasks: CronTaskMetadata[] = [];
     manualCronTasks: Map<string, ManualCronTask> = new Map();
-    startCronTasks(context: PluginContext) {
+    startCronTasks(context: AppContext) {
         const container = context.container;
         for (const task of CRON_TASKS) {
             const instance = container.get(task.target.constructor); //  get instance of the class
@@ -102,7 +73,7 @@ export default class App implements AppPlugin {
         this.bootstrapFilesGlobPath = this.config.globCronPath || defaultConfig.globCronPath;
         CRON_TASKS = this.cronTasks; // Переопределим ссылку в глобал переменной
     }
-    async onInit(ctx: PluginContext) {
+    async onInit(ctx: AppContext) {
         this.context = ctx;
     }
     async registerManualCronTask(data: ManualCronTask) {
@@ -119,7 +90,7 @@ export default class App implements AppPlugin {
             }
         });
     }
-    async afterStart(ctx: PluginContext) {
+    async afterStart(ctx: AppContext) {
         this.startCronTasks(ctx);
     }
 }

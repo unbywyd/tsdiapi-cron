@@ -1,34 +1,8 @@
 import "reflect-metadata";
-import type { Application } from 'express';
-import { Server } from "http";
-import type { Container } from 'typedi';
+import { AppContext, AppPlugin } from "tsdiapi-server";
 export type PluginOptions = {
     globCronPath: string;
 };
-export interface AppOptions {
-    appConfig: any;
-    environment: string;
-    corsOptions: any;
-    swaggerOptions: any;
-    [key: string]: any;
-}
-export interface PluginContext {
-    appDir: string;
-    app: Application;
-    server?: Server;
-    plugins: Record<string, AppPlugin>;
-    container: typeof Container;
-    config: AppOptions;
-    logger: any;
-}
-export interface AppPlugin {
-    name: string;
-    bootstrapFilesGlobPath?: string;
-    appConfig?: Record<string, any>;
-    onInit?(ctx: PluginContext): Promise<void> | void;
-    beforeStart?(ctx: PluginContext): Promise<void> | void;
-    afterStart?(ctx: PluginContext): Promise<void> | void;
-}
 export type CronTaskOptions = {
     name?: string;
     description?: string;
@@ -42,7 +16,7 @@ export interface CronTaskMetadata {
 export interface ManualCronTask {
     id: string;
     schedule: string;
-    task: (context: PluginContext) => Promise<void>;
+    task: (context: AppContext) => Promise<void>;
 }
 /**
  * @CronTask - Decorator for cron tasks
@@ -53,13 +27,13 @@ export default class App implements AppPlugin {
     name: string;
     config: PluginOptions;
     bootstrapFilesGlobPath: string;
-    context: PluginContext;
+    context: AppContext;
     cronTasks: CronTaskMetadata[];
     manualCronTasks: Map<string, ManualCronTask>;
-    startCronTasks(context: PluginContext): void;
+    startCronTasks(context: AppContext): void;
     constructor(config?: PluginOptions);
-    onInit(ctx: PluginContext): Promise<void>;
+    onInit(ctx: AppContext): Promise<void>;
     registerManualCronTask(data: ManualCronTask): Promise<void>;
-    afterStart(ctx: PluginContext): Promise<void>;
+    afterStart(ctx: AppContext): Promise<void>;
 }
 //# sourceMappingURL=index.d.ts.map
