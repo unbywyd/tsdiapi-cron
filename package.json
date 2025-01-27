@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.10",
-    "@types/tsdiapi-server": "github:unbywyd/tsdiapi-types#master",
+    "tsdiapi-server": "github:unbywyd/tsdiapi-server#master",
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
