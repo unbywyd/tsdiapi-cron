@@ -69,7 +69,7 @@ The plugin supports the following configuration options:
 
 | Option         | Type     | Default Value       | Description                           |
 | -------------- | -------- | ------------------- | ------------------------------------- |
-| `globCronPath` | `string` | `"*.cron{.ts,.js}"` | Glob pattern to find cron task files. |
+| `autoloadGlobPath` | `string` | `"*.cron{.ts,.js}"` | Glob pattern to find cron task files. |
 
 Example usage:
 
@@ -79,7 +79,7 @@ import CronPlugin from "@tsdiapi/cron";
 createApp({
   plugins: [
     new CronPlugin({
-      globCronPath: "*.cron.ts", // Custom glob pattern
+      autoloadGlobPath: "*.cron.ts", // Custom glob pattern
     }),
   ],
 });

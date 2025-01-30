@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { AppContext, AppPlugin } from "tsdiapi-server";
 export type PluginOptions = {
-    globCronPath: string;
+    autoloadGlobPath: string;
 };
 export type CronTaskOptions = {
     name?: string;

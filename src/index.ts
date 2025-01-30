@@ -3,10 +3,10 @@ import cron from 'node-cron';
 import { AppContext, AppPlugin } from "tsdiapi-server";
 
 export type PluginOptions = {
-    globCronPath: string;
+    autoloadGlobPath: string;
 }
 const defaultConfig: PluginOptions = {
-    globCronPath: "*.cron{.ts,.js}",
+    autoloadGlobPath: "*.cron{.ts,.js}",
 }
 
 export type CronTaskOptions = {
@@ -44,7 +44,6 @@ export function CronTask(schedule: string, options?: CronTaskOptions): MethodDec
     };
 }
 
-
 class App implements AppPlugin {
     name = 'tsdiapi-cron';
     config: PluginOptions;
@@ -68,7 +67,7 @@ class App implements AppPlugin {
     }
     constructor(config?: PluginOptions) {
         this.config = { ...config };
-        this.bootstrapFilesGlobPath = this.config.globCronPath || defaultConfig.globCronPath;
+        this.bootstrapFilesGlobPath = this.config.autoloadGlobPath || defaultConfig.autoloadGlobPath;
         CRON_TASKS = this.cronTasks;
     }
     async onInit(ctx: AppContext) {

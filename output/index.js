@@ -8,7 +8,7 @@ exports.default = createPlugin;
 require("reflect-metadata");
 const node_cron_1 = __importDefault(require("node-cron"));
 const defaultConfig = {
-    globCronPath: "*.cron{.ts,.js}",
+    autoloadGlobPath: "*.cron{.ts,.js}",
 };
 let CRON_TASKS = [];
 /**
@@ -48,7 +48,7 @@ class App {
     }
     constructor(config) {
         this.config = { ...config };
-        this.bootstrapFilesGlobPath = this.config.globCronPath || defaultConfig.globCronPath;
+        this.bootstrapFilesGlobPath = this.config.autoloadGlobPath || defaultConfig.autoloadGlobPath;
         CRON_TASKS = this.cronTasks;
     }
     async onInit(ctx) {
