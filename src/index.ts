@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import cron from 'node-cron';
-import { AppContext, AppPlugin } from "tsdiapi-server";
+import type { AppContext, AppPlugin } from "@tsdiapi/server";
 
 export type PluginOptions = {
     autoloadGlobPath: string;
@@ -86,9 +86,9 @@ class App implements AppPlugin {
             this.context.logger.error(`Manual cron task with id "${id}" already exists.`);
             return;
         }
-    
+
         this.manualCronTasks.set(id, data);
-    
+
         cron.schedule(schedule, async () => {
             try {
                 const manualTask = this.manualCronTasks.get(id);
@@ -102,7 +102,7 @@ class App implements AppPlugin {
         });
         this.context.logger.info(`Manual cron task "${id}" scheduled with: ${schedule}`);
     }
-    
+
     async afterStart(ctx: AppContext) {
         this.startCronTasks(ctx);
     }
