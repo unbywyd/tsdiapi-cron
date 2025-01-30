@@ -15,7 +15,7 @@ TSDIAPI-Cron is a plugin for the [TSDIAPI-Server](https://github.com/unbywyd/tsd
 ## Installation
 
 ```bash
-npm install tsdiapi-cron
+npm install @tsdiapi/cron
 ```
 
 ---
@@ -27,7 +27,7 @@ npm install tsdiapi-cron
 Use the `@CronTask` decorator to define a cron job:
 
 ```typescript
-import { CronTask } from "tsdiapi-cron";
+import { CronTask } from "@tsdiapi/cron";
 import { Service } from "typedi";
 
 @Service()
@@ -47,8 +47,8 @@ export class TestCron {
 Add the plugin to the `createApp` function of your TSDIAPI-Server application:
 
 ```typescript
-import { createApp } from "./app";
-import CronPlugin from "tsdiapi-cron";
+import { createApp } from "@tsdiapi/server";
+import CronPlugin from "@tsdiapi/cron";
 
 createApp({
   plugins: [new CronPlugin()],
@@ -70,7 +70,7 @@ The plugin supports the following configuration options:
 Example usage:
 
 ```typescript
-import CronPlugin from "tsdiapi-cron";
+import CronPlugin from "@tsdiapi/cron";
 
 createApp({
   plugins: [
@@ -83,25 +83,6 @@ createApp({
 
 ---
 
-## Advanced Usage
-
-### Manual Cron Task Registration
-
-You can register cron tasks dynamically at runtime using the `registerManualCronTask` method:
-
-```typescript
-import { ManualCronTask } from "tsdiapi-cron";
-
-const manualTask: ManualCronTask = {
-  id: "dynamicTask",
-  schedule: "0 * * * *", // Every hour
-  task: async (context) => {
-    console.log("Executing dynamic task");
-  },
-};
-
-await context.plugins["tsdiapi-cron"].registerManualCronTask(manualTask);
-```
 
 ### Plugin Lifecycle Integration
 

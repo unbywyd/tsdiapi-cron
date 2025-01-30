@@ -16,7 +16,6 @@ let CRON_TASKS = [];
  * @param schedule - cron schedule
  */
 function CronTask(schedule, options) {
-    // Пушим в глобальную переменную, но не забываем что она будет переопределена в конструкторе и направлена в this.cronTasks
     return (target, methodName) => {
         CRON_TASKS.push({
             schedule,
@@ -36,7 +35,7 @@ class App {
     startCronTasks(context) {
         const container = context.container;
         for (const task of CRON_TASKS) {
-            const instance = container.get(task.target.constructor); //  get instance of the class
+            const instance = container.get(task.target.constructor);
             node_cron_1.default.schedule(task.schedule, async () => {
                 const method = instance[task.methodName];
                 if (typeof method === 'function') {
@@ -50,7 +49,7 @@ class App {
     constructor(config) {
         this.config = { ...config };
         this.bootstrapFilesGlobPath = this.config.globCronPath || defaultConfig.globCronPath;
-        CRON_TASKS = this.cronTasks; // Переопределим ссылку в глобал переменной
+        CRON_TASKS = this.cronTasks;
     }
     async onInit(ctx) {
         this.context = ctx;

@@ -9,7 +9,6 @@ const defaultConfig: PluginOptions = {
     globCronPath: "*.cron{.ts,.js}",
 }
 
-
 export type CronTaskOptions = {
     name?: string;
     description?: string;
@@ -35,7 +34,6 @@ let CRON_TASKS: CronTaskMetadata[] = [];
  * @param schedule - cron schedule
  */
 export function CronTask(schedule: string, options?: CronTaskOptions): MethodDecorator {
-    // Пушим в глобальную переменную, но не забываем что она будет переопределена в конструкторе и направлена в this.cronTasks
     return (target, methodName) => {
         CRON_TASKS.push({
             schedule,
@@ -57,7 +55,7 @@ class App implements AppPlugin {
     startCronTasks(context: AppContext) {
         const container = context.container;
         for (const task of CRON_TASKS) {
-            const instance = container.get(task.target.constructor); //  get instance of the class
+            const instance = container.get(task.target.constructor);
             cron.schedule(task.schedule, async () => {
                 const method = (instance as any)[task.methodName];
                 if (typeof method === 'function') {
@@ -71,7 +69,7 @@ class App implements AppPlugin {
     constructor(config?: PluginOptions) {
         this.config = { ...config };
         this.bootstrapFilesGlobPath = this.config.globCronPath || defaultConfig.globCronPath;
-        CRON_TASKS = this.cronTasks; // Переопределим ссылку в глобал переменной
+        CRON_TASKS = this.cronTasks;
     }
     async onInit(ctx: AppContext) {
         this.context = ctx;
