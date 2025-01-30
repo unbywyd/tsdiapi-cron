@@ -18,7 +18,11 @@ TSDIAPI-Cron is a plugin for the [TSDIAPI-Server](https://github.com/unbywyd/tsd
 npm install @tsdiapi/cron
 ```
 
----
+or use `@tsdiapi/cli` to add it to your project:
+
+```bash
+tsdiapi add plugin cron
+```
 
 ## Getting Started
 
