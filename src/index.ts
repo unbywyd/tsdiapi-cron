@@ -56,9 +56,16 @@ class App implements AppPlugin {
         for (const task of CRON_TASKS) {
             const instance = container.get(task.target.constructor);
             cron.schedule(task.schedule, async () => {
-                const method = (instance as any)[task.methodName];
-                if (typeof method === 'function') {
-                    await method.call(instance);
+                try {
+                    const method = (instance as any)[task.methodName];
+                    if (typeof method === 'function') {
+                        await method.call(instance);
+                        this.context.logger.info(`Cron task "${task.options?.name || task.methodName}" executed successfully.`);
+                    } else {
+                        this.context.logger.warn(`Method "${task.methodName}" is not a function.`);
+                    }
+                } catch (error) {
+                    this.context.logger.error(`Error executing cron task "${task.options?.name || task.methodName}": ${error.message}`);
                 }
             });
             const name = task.options?.name || task.methodName;
@@ -76,17 +83,26 @@ class App implements AppPlugin {
     async registerManualCronTask(data: ManualCronTask) {
         const { id, schedule } = data;
         if (this.manualCronTasks.has(id)) {
-            console.error(`Manual cron task with id "${id}" already exists`);
+            this.context.logger.error(`Manual cron task with id "${id}" already exists.`);
             return;
         }
+    
         this.manualCronTasks.set(id, data);
+    
         cron.schedule(schedule, async () => {
-            const manualTask = this.manualCronTasks.get(id);
-            if (manualTask?.task) {
-                await manualTask.task(this.context);
+            try {
+                const manualTask = this.manualCronTasks.get(id);
+                if (manualTask?.task) {
+                    await manualTask.task(this.context);
+                    this.context.logger.info(`Manual cron task "${id}" executed successfully.`);
+                }
+            } catch (error) {
+                this.context.logger.error(`Error executing manual cron task "${id}": ${error.message}`);
             }
         });
+        this.context.logger.info(`Manual cron task "${id}" scheduled with: ${schedule}`);
     }
+    
     async afterStart(ctx: AppContext) {
         this.startCronTasks(ctx);
     }
