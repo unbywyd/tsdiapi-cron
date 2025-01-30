@@ -1,4 +1,4 @@
-# TSDIAPI-Cron: Cron Scheduler Plugin for TSDIAPI-Server
+# Cron Scheduler Plugin for TSDIAPI-Server
 
 TSDIAPI-Cron is a plugin for the [TSDIAPI-Server](https://github.com/unbywyd/tsdiapi-server) framework, designed to simplify scheduling and managing cron jobs in TypeScript projects. It integrates seamlessly with the framework and utilizes `node-cron` for precise task scheduling.
 
