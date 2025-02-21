@@ -24,6 +24,20 @@ or use `@tsdiapi/cli` to add it to your project:
 tsdiapi plugins add cron
 ```
 
+## Code Generation
+
+| Name   | Description                                       |
+| ------ | ----------------------------------------------- |
+| `base` | Create a new cron job with a predefined schedule. |
+
+The **TSDIAPI-Cron** plugin includes a generator to streamline cron job creation. Use the `tsdiapi` CLI command to generate cron job files automatically:
+
+```bash
+tsdiapi generate cron
+```
+
+This command will create a new cron job with the necessary structure, including decorators and scheduling logic. You can specify the schedule and customize the task logic according to your needs.
+
 ## Getting Started
 
 ### Define a Cron Task
