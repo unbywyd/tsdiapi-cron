@@ -21,7 +21,7 @@ npm install @tsdiapi/cron
 or use `@tsdiapi/cli` to add it to your project:
 
 ```bash
-tsdiapi add plugin cron
+tsdiapi plugins add cron
 ```
 
 ## Getting Started
@@ -67,8 +67,8 @@ The plugin supports the following configuration options:
 
 ### PluginOptions
 
-| Option         | Type     | Default Value       | Description                           |
-| -------------- | -------- | ------------------- | ------------------------------------- |
+| Option             | Type     | Default Value       | Description                           |
+| ------------------ | -------- | ------------------- | ------------------------------------- |
 | `autoloadGlobPath` | `string` | `"*.cron{.ts,.js}"` | Glob pattern to find cron task files. |
 
 Example usage:
@@ -86,7 +86,6 @@ createApp({
 ```
 
 ---
-
 
 ### Plugin Lifecycle Integration
 

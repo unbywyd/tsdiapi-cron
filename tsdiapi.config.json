@@ -1,0 +1,29 @@
+{
+  "name": "@tsdiapi/cron",
+  "description": "Cron job scheduling plugin for TSDIAPI-Server using node-cron.",
+  "generators": [
+    {
+      "name": "base",
+      "description": "Generate a base cron job structure.",
+      "files": [
+        {
+          "source": "generators/base/*.*",
+          "destination": ".",
+          "overwrite": false,
+          "isHandlebarsTemplate": true
+        }
+      ],
+      "args": [
+        {
+          "name": "schedule",
+          "description": "Cron schedule expression (e.g., '*/5 * * * *' for every 5 minutes).",
+          "validate": "^([*]|[0-9,-/]+) ([*]|[0-9,-/]+) ([*]|[0-9,-/]+) ([*]|[0-9,-/]+) ([*]|[0-9,-/]+)( ([*]|[0-9,-/]+))?$",
+          "inquirer": {
+            "type": "input",
+            "message": "Enter the cron schedule expression (e.g., '*/5 * * * *'):"
+          }
+        }
+      ]
+    }
+  ]
+}
