@@ -1,7 +1,7 @@
 {
   "name": "@tsdiapi/cron",
   "description": "A powerful cron scheduling plugin for the TSDIAPI-Server framework, enabling declarative and dynamic task management.",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.5",
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "private": false,
@@ -53,6 +53,7 @@
     "output/",
     "README.md",
     "LICENSE.md",
-    "generators/"
+    "generators/",
+    "tsdiapi.config.json"
   ]
 }
