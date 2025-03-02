@@ -2,12 +2,12 @@ import { CronTask } from "@tsdiapi/cron";
 import { Service } from "typedi";
 
 @Service()
-export class {{classname}}Task {
+export class {{className}}Task {
     @CronTask("{{schedule}}", {
-       name: "{{classname}} Task",
+       name: "{{className}} Task",
        description: "This task runs on the defined schedule",
     }) 
     async run() {
-       console.log(`{{classname}} executed at ${new Date().toISOString()}`);
+       console.log(`{{className}} executed at ${new Date().toISOString()}`);
     }  
 }

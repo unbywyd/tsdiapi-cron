@@ -24,7 +24,16 @@
             "message": "Enter the cron schedule expression (e.g., '*/5 * * * *'):"
           }
         }
+      ],
+      "postMessages": [
+        "✅ Cron job generation completed successfully!",
+        "📌 Your cron job has been created with the specified schedule.",
+        "💡 Reminder: Ensure node-cron is installed and your TSDIAPI application is running for the scheduled job to execute."
       ]
     }
+  ],
+  "postMessages": [
+    "🚀 The @tsdiapi/cron plugin has been successfully installed!",
+    "📌 You can now generate cron jobs using the 'tsdiapi generate cron' command."
   ]
 }
