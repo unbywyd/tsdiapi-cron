@@ -1,12 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CronTask = CronTask;
-exports.default = createPlugin;
-require("reflect-metadata");
-const node_cron_1 = __importDefault(require("node-cron"));
+import "reflect-metadata";
+import cron from 'node-cron';
 const defaultConfig = {
     autoloadGlobPath: "*.cron{.ts,.js}",
 };
@@ -15,7 +8,7 @@ let CRON_TASKS = [];
  * @CronTask - Decorator for cron tasks
  * @param schedule - cron schedule
  */
-function CronTask(schedule, options) {
+export function CronTask(schedule, options) {
     return (target, methodName) => {
         CRON_TASKS.push({
             schedule,
@@ -36,7 +29,7 @@ class App {
         const container = context.container;
         for (const task of CRON_TASKS) {
             const instance = container.get(task.target.constructor);
-            node_cron_1.default.schedule(task.schedule, async () => {
+            cron.schedule(task.schedule, async () => {
                 try {
                     const method = instance[task.methodName];
                     if (typeof method === 'function') {
@@ -70,7 +63,7 @@ class App {
             return;
         }
         this.manualCronTasks.set(id, data);
-        node_cron_1.default.schedule(schedule, async () => {
+        cron.schedule(schedule, async () => {
             try {
                 const manualTask = this.manualCronTasks.get(id);
                 if (manualTask?.task) {
@@ -88,7 +81,7 @@ class App {
         this.startCronTasks(ctx);
     }
 }
-function createPlugin(config) {
+export default function createPlugin(config) {
     return new App(config);
 }
 //# sourceMappingURL=index.js.map
