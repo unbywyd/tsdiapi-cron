@@ -1,5 +1,11 @@
 import "reflect-metadata";
+import cron from 'node-cron';
 import type { AppContext, AppPlugin } from "@tsdiapi/server";
+declare module "fastify" {
+    interface FastifyInstance {
+        cron: typeof cron;
+    }
+}
 export type PluginOptions = {
     autoloadGlobPath: string;
 };
@@ -33,7 +39,7 @@ declare class App implements AppPlugin {
     startCronTasks(context: AppContext): void;
     constructor(config?: PluginOptions);
     onInit(ctx: AppContext): Promise<void>;
-    registerManualCronTask(data: ManualCronTask): Promise<void>;
+    addCronTask(data: ManualCronTask): Promise<void>;
     afterStart(ctx: AppContext): Promise<void>;
 }
 export default function createPlugin(config?: PluginOptions): App;
