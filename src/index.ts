@@ -9,10 +9,6 @@ declare module "fastify" {
     }
 }
 export type PluginOptions = {
-    autoloadGlobPath: string;
-}
-const defaultConfig: PluginOptions = {
-    autoloadGlobPath: "*.cron{.ts,.js}",
 }
 
 export type CronTaskOptions = {
@@ -52,7 +48,6 @@ export function CronTask(schedule: string, options?: CronTaskOptions): MethodDec
 class App implements AppPlugin {
     name = 'tsdiapi-cron';
     config: PluginOptions;
-    bootstrapFilesGlobPath: string;
     context: AppContext;
     cronTasks: CronTaskMetadata[] = [];
     manualCronTasks: Map<string, ManualCronTask> = new Map();
@@ -78,7 +73,6 @@ class App implements AppPlugin {
     }
     constructor(config?: PluginOptions) {
         this.config = { ...config };
-        this.bootstrapFilesGlobPath = this.config.autoloadGlobPath || defaultConfig.autoloadGlobPath;
         CRON_TASKS = this.cronTasks;
     }
     async onInit(ctx: AppContext) {
