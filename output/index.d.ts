@@ -6,9 +6,7 @@ declare module "fastify" {
         cron: typeof cron;
     }
 }
-export type PluginOptions = {
-    autoloadGlobPath: string;
-};
+export type PluginOptions = {};
 export type CronTaskOptions = {
     name?: string;
     description?: string;
@@ -32,7 +30,6 @@ export declare function CronTask(schedule: string, options?: CronTaskOptions): M
 declare class App implements AppPlugin {
     name: string;
     config: PluginOptions;
-    bootstrapFilesGlobPath: string;
     context: AppContext;
     cronTasks: CronTaskMetadata[];
     manualCronTasks: Map<string, ManualCronTask>;

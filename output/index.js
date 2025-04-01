@@ -1,9 +1,6 @@
 import "reflect-metadata";
 import cron from 'node-cron';
 import { Container } from "typedi";
-const defaultConfig = {
-    autoloadGlobPath: "*.cron{.ts,.js}",
-};
 let CRON_TASKS = [];
 /**
  * @CronTask - Decorator for cron tasks
@@ -22,7 +19,6 @@ export function CronTask(schedule, options) {
 class App {
     name = 'tsdiapi-cron';
     config;
-    bootstrapFilesGlobPath;
     context;
     cronTasks = [];
     manualCronTasks = new Map();
@@ -50,7 +46,6 @@ class App {
     }
     constructor(config) {
         this.config = { ...config };
-        this.bootstrapFilesGlobPath = this.config.autoloadGlobPath || defaultConfig.autoloadGlobPath;
         CRON_TASKS = this.cronTasks;
     }
     async onInit(ctx) {
